@@ -21,9 +21,9 @@ def tiradaDados(int dice, int typeDie):
 				resultados.insert(d100())
 			else:
 				resultados.insert(0,random.randrange(1,(typeDie),1))
-		veces=veces+1
+			veces=veces+1
 
-	print resultados
+		print(resultados)
 
 	else:
 		print("Error: No es dado valido")
