@@ -6,13 +6,13 @@ rolzCaller = telebot.TeleBot('440342279:AAHMIYg_7ICLncbw_GhsOU9J-etUFq-1Yao')
 
 @rolzCaller.message_handler(commands=['start'])
 def send_welcome(message):
-    rolzCaller.reply_to(message, "A Jugar!!!!")
+    rolzCaller.reply_to(message, "Let's GO!!!!")
 
 @rolzCaller.message_handler(commands=['help'])
 def send_help(message):
     rolzCaller.reply_to(message,
-    "Si me escribes roll y xdy, "
-    "x=numero de dados e y=tipo de dado, te hare caso ;)")
+    "If you type me /roll xdy, "
+    "x=number of dice e y=type of die, maybe I shall obey ;)")
 
 @rolzCaller.message_handler(commands=['roll'])
 def send_ask_dice(message):
@@ -31,7 +31,7 @@ def send_ask_dice(message):
             totalAnswer=totalAnswer+x
         rolzCaller.send_message(-1001121407949, "Tirada(s) {} Suma total: {}".format(rolled, totalAnswer))
     else:
-        rolzCaller.reply_to(message, "Colega, no te pillo... Repite")
+        rolzCaller.reply_to(message, "Buddy, sthing is wrong... Repeat")
 
 @rolzCaller.message_handler(commands=['stop'])
 def send_welcome(message):
@@ -39,6 +39,6 @@ def send_welcome(message):
 
 @rolzCaller.message_handler(func=lambda message: True)
 def echo_all(message):
-    rolzCaller.reply_to(message, "Habla, chucho, que no te escucho!!")
+    rolzCaller.reply_to(message, "Did ya say sthing?")
 
 rolzCaller.polling()
