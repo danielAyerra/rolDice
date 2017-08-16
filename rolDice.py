@@ -1,7 +1,7 @@
 import telebot
 import random
 
-rolzCaller = telebot.TeleBot('440342279:AAHMIYg_7ICLncbw_GhsOU9J-etUFq-1Yao')
+rolzCaller = telebot.TeleBot('*************:###################')
 
 
 @rolzCaller.message_handler(commands=['start'])
