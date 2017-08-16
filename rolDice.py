@@ -19,9 +19,13 @@ def send_ask_dice(message):
     messageExtract = str(message.text)
     print(messageExtract)
     messageTreated = messageExtract.replace('/roll ', '')
-    numberOfDice = int(messageTreated.split('d')[0])
-    typeOfDie = int(messageTreated.split('d')[1])
-    print("Dados {} Tipo de dado {}.".format(numberOfDice, typeOfDie))
+    try:
+        numberOfDice = int(messageTreated.split('d')[0])
+        typeOfDie = int(messageTreated.split('d')[1])
+    except ValueError:
+        rolzCaller.reply_to(message,"Hey, Buddy, where are my dice?")
+        numberOfDice = 0
+        typeOfDie = 0
     totalAnswer = 0
     rolled = []
     if typeOfDie == 4 or typeOfDie == 6 or typeOfDie == 8 or typeOfDie == 10 or typeOfDie == 12 or typeOfDie == 20 or typeOfDie == 100:
@@ -29,7 +33,7 @@ def send_ask_dice(message):
             x = random.randint(1, typeOfDie)
             rolled.append(x)
             totalAnswer=totalAnswer+x
-        rolzCaller.send_message(-1001121407949, "Tirada(s) {} Suma total: {}".format(rolled, totalAnswer))
+        rolzCaller.send_message(****************, "Time(s) {} Total Add: {}".format(rolled, totalAnswer))
     else:
         rolzCaller.reply_to(message, "Buddy, sthing is wrong... Repeat")
 
