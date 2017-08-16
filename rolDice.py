@@ -3,7 +3,7 @@ import random
 import common
 
 
-rolzCaller = telebot.TeleBot('440342279:AAEUiwOsBkEVmLNgtPl3-qJKGyFOFWrCCoE')
+rolzCaller = telebot.TeleBot('*********************')
 
 
 @rolzCaller.message_handler(commands=['start'])
