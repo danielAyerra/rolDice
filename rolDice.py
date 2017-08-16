@@ -1,23 +1,44 @@
+import telebot
 import random
 
-tiposDado={"d4":4, "d6":6,"d8":8,"d10":10,"d12":12,"d20":20,"d100":100}
-
-def tiradaDados(int dice, int typeDie):
-	veces=0
-	resultados=[None]
-	if tipoDado!=None:
-		while veces<dice:
-			resultados.insert(0,random.randrange(1,(typeDie),1))
-			veces=veces+1
-
-		print(resultados)
-
-	else:
-		print("Error: No es dado valido")
+rolzCaller = telebot.TeleBot('440342279:AAHMIYg_7ICLncbw_GhsOU9J-etUFq-1Yao')
 
 
+@rolzCaller.message_handler(commands=['start'])
+def send_welcome(message):
+    rolzCaller.reply_to(message, "A Jugar!!!!")
 
-dados=int(input("Introduzca numero de dados "))
-tipoElegido=str(input("Que dado quiere tirar?(dX) "))
-tipoDado=tiposDado[tipoElegido]
-tiradaDados(dados,tipoDado)
+@rolzCaller.message_handler(commands=['help'])
+def send_help(message):
+    rolzCaller.reply_to(message,
+    "Si me escribes roll y xdy, "
+    "x=numero de dados e y=tipo de dado, te hare caso ;)")
+
+@rolzCaller.message_handler(commands=['roll'])
+def send_ask_dice(message):
+    messageExtract = str(message.text)
+    print(messageExtract)
+    messageTreated = messageExtract.replace('/roll ', '')
+    numberOfDice = int(messageTreated.split('d')[0])
+    typeOfDie = int(messageTreated.split('d')[1])
+    print("Dados {} Tipo de dado {}.".format(numberOfDice, typeOfDie))
+    totalAnswer = 0
+    rolled = []
+    if typeOfDie == 4 or typeOfDie == 6 or typeOfDie == 8 or typeOfDie == 10 or typeOfDie == 12 or typeOfDie == 20 or typeOfDie == 100:
+        for i in range(0, numberOfDice):
+            x = random.randint(1, typeOfDie)
+            rolled.append(x)
+            totalAnswer=totalAnswer+x
+        rolzCaller.send_message(-1001121407949, "Tirada(s) {} Suma total: {}".format(rolled, totalAnswer))
+    else:
+        rolzCaller.reply_to(message, "Colega, no te pillo... Repite")
+
+@rolzCaller.message_handler(commands=['stop'])
+def send_welcome(message):
+    rolzCaller.reply_to(message, "Game Over :(")
+
+@rolzCaller.message_handler(func=lambda message: True)
+def echo_all(message):
+    rolzCaller.reply_to(message, "Habla, chucho, que no te escucho!!")
+
+rolzCaller.polling()
