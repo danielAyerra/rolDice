@@ -1,7 +1,7 @@
 import telebot
 import random
 
-rolzCaller = telebot.TeleBot('*********:##################')
+rolzCaller = telebot.TeleBot('*********:######################')
 
 
 @rolzCaller.message_handler(commands=['start'])
@@ -19,8 +19,14 @@ def send_ask_dice(message):
     messageExtract = str(message.text)
     print(messageExtract)
     messageTreated = messageExtract.replace('/roll ', '')
-    numberOfDice = int(messageTreated.split('d')[0])
-    typeOfDie = int(messageTreated.split('d')[1])
+    try:
+        numberOfDice = int(messageTreated.split('d')[0])
+        typeOfDie = int(messageTreated.split('d')[1])
+    except ValueError:
+        rolzCaller.reply_to(message,"Incluye dados, colega")
+        numberOfDice = 0
+        typeOfDie = 0
+
     print("Dados {} Tipo de dado {}.".format(numberOfDice, typeOfDie))
     totalAnswer = 0
     rolled = []
@@ -29,7 +35,7 @@ def send_ask_dice(message):
             x = random.randint(1, typeOfDie)
             rolled.append(x)
             totalAnswer=totalAnswer+x
-        rolzCaller.send_message(-1001121407949, "Tirada(s) {} Suma total: {}".format(rolled, totalAnswer))
+        rolzCaller.send_message(-*************, "Tirada(s) {} Suma total: {}".format(rolled, totalAnswer))
     else:
         rolzCaller.reply_to(message, "Colega, no te pillo... Repite")
 
@@ -42,3 +48,4 @@ def echo_all(message):
     rolzCaller.reply_to(message, "Habla, chucho, que no te escucho!!")
 
 rolzCaller.polling()
+
